@@ -15,6 +15,10 @@ export class TerrainShaderComponent extends ShaderComponent<TerrainNode> {
       "worldMatrix",
       this.object.get(ComponentType.transform).worldMatrix(),
     );
+    terrainShader.setUniform3f(
+      "directionalLight",
+      vec3.fromValues(-0.3, -0.5, 0.3)
+    );
   }
 
   public bind(): void {

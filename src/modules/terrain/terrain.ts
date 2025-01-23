@@ -3,16 +3,16 @@ import { TerrainNode } from "../../sceneGraph/impl/terrain/terrainNode";
 import { GameObject } from "../../sceneGraph/gameObject";
 import { TerrainNodeImpl } from "./terrainNodeImpl";
 import { Camera } from "../../camera";
-import Noise from "noisejs";
+import Perlin from "../../util/perlinNoise";
 
 export class Terrain extends GameObject {
   private nodes: TerrainNode[] = [];
-  private noise: Noise;
+  private noise: Perlin;
   
   constructor(camera: Camera) {
     super();
     
-    this.noise = new Noise(Math.random());
+    this.noise = new Perlin(Math.random());
     this.nodes.push(new TerrainNodeImpl(camera, this.noise));
   }
   

@@ -21,8 +21,12 @@ export class TerrainShader extends Shader {
     this.addFragmentShader(`
       precision mediump float;
       varying vec3 normal;
+      uniform vec3 directionalLight;
+      float diffuse(vec3 dir, vec3 normal, float intensity) {
+        return max(0.0, dot(normal, -dir) * intensity);
+      }
       void main(void) {
-        gl_FragColor = vec4(normal,1);
+        gl_FragColor = vec4(vec3(1,0,0) * diffuse(directionalLight, normal, 0.5),1);
       }
     `);
 
@@ -32,5 +36,6 @@ export class TerrainShader extends Shader {
 
     this.addUniform("projectionViewMatrix");
     this.addUniform("worldMatrix");
+    this.addUniform("directionalLight");
   }
 }

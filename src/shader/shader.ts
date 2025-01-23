@@ -1,4 +1,4 @@
-import { mat4 } from "gl-matrix";
+import { mat4, vec3 } from "gl-matrix";
 
 export class Shader {
   private gl: WebGL2RenderingContext;
@@ -39,6 +39,10 @@ export class Shader {
 
   public getUniform(text: string): WebGLUniformLocation {
     return this.uniforms.get(text);
+  }
+  
+  public setUniform3f(text: string, vec: vec3): void {
+    this.gl.uniform3fv(this.getUniform(text), vec);
   }
 
   public setUniformMatrix4f(text: string, matrix: mat4): void {

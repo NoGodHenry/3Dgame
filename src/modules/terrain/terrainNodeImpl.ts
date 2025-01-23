@@ -1,12 +1,12 @@
 import { vec2 } from "gl-matrix";
 import { TerrainNode } from "../../sceneGraph/impl/terrain/terrainNode";
 import { Camera } from "../../camera";
-import Noise from "noisejs";
+import Perlin from "../../util/perlinNoise";
 
 export class TerrainNodeImpl extends TerrainNode { 
-  private noise: Noise;
+  private noise: Perlin;
   
-  constructor(camera: Camera, noise: Noise) { 
+  constructor(camera: Camera, noise: Perlin) { 
     super(camera);
     
     this.noise = noise;
