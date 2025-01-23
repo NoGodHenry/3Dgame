@@ -11,7 +11,7 @@ export class TerrainShader extends Shader {
       uniform mat4 worldMatrix;
 
       void main(void) {
-        gl_Position = worldMatrix * projectionViewMatrix * vertexPosition;
+        gl_Position = projectionViewMatrix * worldMatrix * vertexPosition;
       }
     `);
     this.addFragmentShader(`

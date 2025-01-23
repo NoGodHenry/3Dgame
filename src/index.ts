@@ -8,13 +8,13 @@ const sceneGraph: SceneGraph = new SceneGraph();
 
 function init() { 
   shaderInit(gl);
-  gl.clearColor(0, 0, 0, 1);
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  
   sceneGraph.add(new Terrain(sceneGraph.camera));
   gl.createBuffer();
   
   function render() { 
+    gl.enable(gl.DEPTH_TEST);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
     sceneGraph.render();
     requestAnimationFrame(render);
   }

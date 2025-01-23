@@ -5,9 +5,9 @@ import { GameObject } from "../../gameObject";
 export class TransformComponent extends Component<GameObject> {
   translation: vec3 = vec3.create();
   rotation: vec3 = vec3.create();
-  scaling: vec3 = vec3.create();
-  
-  constructor(object: GameObject) { 
+  scaling: vec3 = vec3.fromValues(1, 1, 1);
+
+  constructor(object: GameObject) {
     super(object);
   }
 
@@ -28,7 +28,7 @@ export class TransformComponent extends Component<GameObject> {
     mat4.mul(scaleRotMatrix, scalingMatrix, rotationMatrix);
     mat4.mul(outputMatrix, translationMatrix, scaleRotMatrix);
 
-    return outputMatrix;
+    return translationMatrix;
   }
 
   modelMatrix(): mat4 {
@@ -36,7 +36,7 @@ export class TransformComponent extends Component<GameObject> {
     mat4.rotateX(rotationMatrix, rotationMatrix, this.rotation[0]);
     mat4.rotateY(rotationMatrix, rotationMatrix, this.rotation[1]);
     mat4.rotateZ(rotationMatrix, rotationMatrix, this.rotation[2]);
-    
+
     return rotationMatrix;
   }
 }

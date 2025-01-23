@@ -47,7 +47,9 @@ export class Shader {
 
   public compileShader(): void {
     this.gl.linkProgram(this.program);
+    console.log(this.gl.getProgramInfoLog(this.program));
     this.gl.validateProgram(this.program);
+    console.log(this.gl.getProgramInfoLog(this.program));
   }
 
   private addShader(text: string, type: GLenum): void {
