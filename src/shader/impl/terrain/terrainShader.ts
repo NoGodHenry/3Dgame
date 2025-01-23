@@ -5,22 +5,29 @@ export class TerrainShader extends Shader {
     super(gl);
 
     this.addVertexShader(`
-      attribute vec4 vertexPosition;
+      attribute vec4 aVertexPosition;
+      attribute vec3 aNormal;
 
       uniform mat4 projectionViewMatrix;
       uniform mat4 worldMatrix;
+      
+      varying vec3 normal;
 
       void main(void) {
-        gl_Position = projectionViewMatrix * worldMatrix * vertexPosition;
+        gl_Position = projectionViewMatrix * worldMatrix * aVertexPosition;
+        normal = aNormal;
       }
     `);
     this.addFragmentShader(`
+      precision mediump float;
+      varying vec3 normal;
       void main(void) {
-        gl_FragColor = vec4(1,0,0,1);
+        gl_FragColor = vec4(normal,1);
       }
     `);
 
-    this.bindAttributeLocation("vertexPosition", 0);
+    this.bindAttributeLocation("aVertexPosition", 0);
+    this.bindAttributeLocation("aNormal", 1);
     this.compileShader();
 
     this.addUniform("projectionViewMatrix");

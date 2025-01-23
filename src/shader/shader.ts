@@ -47,9 +47,7 @@ export class Shader {
 
   public compileShader(): void {
     this.gl.linkProgram(this.program);
-    console.log(this.gl.getProgramInfoLog(this.program));
     this.gl.validateProgram(this.program);
-    console.log(this.gl.getProgramInfoLog(this.program));
   }
 
   private addShader(text: string, type: GLenum): void {
@@ -58,8 +56,7 @@ export class Shader {
     this.gl.compileShader(shader);
 
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-      this.gl.deleteShader(shader);
-      throw new Error("Failed to load shader");
+      throw new Error("Failed to load shader " + this.gl.getShaderInfoLog(shader));
     }
 
     this.gl.attachShader(this.program, shader);

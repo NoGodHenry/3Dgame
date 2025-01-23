@@ -51,8 +51,8 @@ export class Camera {
   projectionMatrix(): mat4 {
     const fieldOfView = (this.fov * Math.PI) / 180; // in radians
     const aspect = gl.canvas.width / gl.canvas.height;
-    const zNear = 0.1;
-    const zFar = 100.0;
+    const zNear = 0.01;
+    const zFar = 1000.0;
     const projectionMatrix = mat4.create();
     mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
     
