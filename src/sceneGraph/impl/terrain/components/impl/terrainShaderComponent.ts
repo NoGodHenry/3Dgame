@@ -7,8 +7,6 @@ import { TerrainNode } from "../../terrainNode";
 
 export class TerrainShaderComponent extends ShaderComponent<TerrainNode> {
   public updateUniforms(): void {
-    this.object.get(ComponentType.transform).translation[2] -= 0.01;
-    this.object.camera.position[0] = 0.2;
     //this.object.camera.rotation[0] += 0.2;
     terrainShader.setUniformMatrix4f(
       "projectionViewMatrix",

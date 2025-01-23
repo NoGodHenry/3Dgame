@@ -4,7 +4,6 @@ import { GameObject } from "./gameObject";
 
 export class SceneGraph { 
   private objects: GameObject[] = []
-  camera: Camera = new Camera(vec3.create(), vec3.create());
   
   render() { 
     this.objects.forEach(e => e.render());
