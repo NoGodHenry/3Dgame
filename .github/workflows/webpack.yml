@@ -35,3 +35,6 @@ jobs:
       with:
         path: ./
         name: html
+  
+    - name: Deploy HTML artifact
+      uses: actions/deploy-pages@v4.0.5
