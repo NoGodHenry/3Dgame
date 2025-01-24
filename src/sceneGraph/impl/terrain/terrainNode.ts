@@ -16,7 +16,7 @@ export abstract class TerrainNode extends GameObject {
     this.camera = camera;
     
     this.addComponent(ComponentType.renderer, new TerrainRendererComponent(this));
-    this.addComponent(ComponentType.meshConstructor, new TerrainMeshConstructorComponent(this, 800, 800));
+    this.addComponent(ComponentType.meshConstructor, new TerrainMeshConstructorComponent(this, 100, 100));
     this.addComponent(ComponentType.shader, new TerrainShaderComponent(this));
     this.addComponent(ComponentType.transform, new TransformComponent(this));
   }

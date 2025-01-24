@@ -5,7 +5,7 @@ import { SceneGraph } from "./sceneGraph/sceneGraph";
 import { shaderInit } from "./shader/shaderManager";
 import { Input } from "./input";
 
-const canvas: HTMLCanvasElement = document.getElementById("gameWindow")! as HTMLCanvasElement;
+export const canvas: HTMLCanvasElement = document.getElementById("gameWindow")! as HTMLCanvasElement;
 export const gl: WebGL2RenderingContext = canvas.getContext("webgl2")! as WebGL2RenderingContext; // TODO: use proper type
 const sceneGraph: SceneGraph = new SceneGraph();
 const camera: Camera = new Camera(new Input(document), vec3.create(), vec3.create());
@@ -13,7 +13,8 @@ const camera: Camera = new Camera(new Input(document), vec3.create(), vec3.creat
 function init() { 
   shaderInit(gl);
   sceneGraph.add(new Terrain(camera));
-  gl.createBuffer();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   
   function render() { 
     gl.enable(gl.DEPTH_TEST);

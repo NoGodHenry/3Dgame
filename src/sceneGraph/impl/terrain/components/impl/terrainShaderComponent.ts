@@ -17,7 +17,7 @@ export class TerrainShaderComponent extends ShaderComponent<TerrainNode> {
     );
     terrainShader.setUniform3f(
       "directionalLight",
-      vec3.fromValues(-0.3, -0.5, 0.3)
+      vec3.fromValues(-1, -0.0, 0.0)
     );
   }
 

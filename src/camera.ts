@@ -17,11 +17,14 @@ export class Camera {
   
   move() { 
     // TODO: deltaTime, keybinds
-    let localMovementSpeed: number = this.movementSpeed * (this.input.isDown("Control") ? 1.5 : 1);
+    const localMovementSpeed: number = this.movementSpeed * (this.input.isDown("Control") ? 2 : 1);
+    
+    this.rotation[1] = this.input.getMouseCoordinates()[0] * 0.02;
     
     if (this.input.isDown("w")) { 
       this.position[0] += Math.sin(this.rotation[1]) * localMovementSpeed;
       this.position[2] += -Math.cos(this.rotation[1]) * localMovementSpeed;
+      console.log(Math.sin(this.rotation[1]) + " " + -Math.cos(this.rotation[1]));
     }
     
     if (this.input.isDown("s")) { 
@@ -29,12 +32,12 @@ export class Camera {
       this.position[2] -= -Math.cos(this.rotation[1]) * localMovementSpeed;
     }
     
-    if (this.input.isDown("d")) { 
+    if (this.input.isDown("a")) { 
       this.position[0] -= -Math.cos(this.rotation[1]) * localMovementSpeed;
       this.position[2] -= Math.sin(this.rotation[1]) * localMovementSpeed;
     }
     
-    if (this.input.isDown("a")) { 
+    if (this.input.isDown("d")) { 
       this.position[0] += -Math.cos(this.rotation[1]) * localMovementSpeed;
       this.position[2] += Math.sin(this.rotation[1]) * localMovementSpeed;
     }
@@ -52,7 +55,7 @@ export class Camera {
     const fieldOfView = (this.fov * Math.PI) / 180; // in radians
     const aspect = gl.canvas.width / gl.canvas.height;
     const zNear = 0.01;
-    const zFar = 1000.0;
+    const zFar = 10000.0;
     const projectionMatrix = mat4.create();
     mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
     
@@ -65,8 +68,12 @@ export class Camera {
     mat4.rotateY(matrix, matrix, this.rotation[1]);
     mat4.rotateZ(matrix, matrix, this.rotation[2]);
    
-    mat4.translate(matrix, matrix, this.position);
-    mat4.invert(matrix, matrix);
+    mat4.translate(matrix, matrix, vec3.fromValues(
+      -this.position[0],
+      -this.position[1],
+      -this.position[2]
+    ));
+    
     
     return matrix;
   }

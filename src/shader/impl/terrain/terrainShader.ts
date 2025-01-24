@@ -12,21 +12,28 @@ export class TerrainShader extends Shader {
       uniform mat4 worldMatrix;
       
       varying vec3 normal;
+      varying vec3 pos;
 
       void main(void) {
         gl_Position = projectionViewMatrix * worldMatrix * aVertexPosition;
         normal = aNormal;
+        pos = vec3(worldMatrix * vec4(aVertexPosition.xyz, 1.0));
       }
     `);
     this.addFragmentShader(`
       precision mediump float;
-      varying vec3 normal;
       uniform vec3 directionalLight;
+      
+      varying vec3 normal;
+      varying vec3 pos;
+      
       float diffuse(vec3 dir, vec3 normal, float intensity) {
-        return max(0.0, dot(normal, -dir) * intensity);
+        return max(0.1, dot(normal, -dir) * intensity);
       }
+      
       void main(void) {
-        gl_FragColor = vec4(vec3(1,0,0) * diffuse(directionalLight, normal, 0.5),1);
+        vec3 norm = normalize(normal);
+        gl_FragColor = vec4(vec3(1,1,0) * diffuse(directionalLight, norm, 2.0), 1);
       }
     `);
 
